@@ -23,6 +23,7 @@ import os
 from subprocess import Popen
 
 
+MERCURIAL_URL = 'http://hg.libsdl.org/SDL'
 template_re = re.compile(r'%([a-zA-Z]+)%')
 
 
@@ -68,7 +69,12 @@ def main():
         f.write(apply_template(value, context))
         f.close()
     print 'Cloning SDL 1.3'
-    Popen(['hg', 'clone', 'http://hg.libsdl.org/SDL', 'libs/sdl-1.3']).wait()
+    try:
+        Popen(['hg', 'clone', MERCURIAL_URL, 'libs/sdl-1.3']).wait()
+    except OSError:
+        print 'Could not pull SDL because hg is not installed.'
+        print 'Please pull on your own into libs/sdl-1.3 from '
+        print MERCURIAL_URL
     print 'All done'
     print
     print 'Now build SDL 1.3 in the libs folder for your platform'
