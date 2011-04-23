@@ -77,7 +77,7 @@ if __name__ == '__main__':
 '''
 
 
-ignored_files = set([FILENAME, __file__.rstrip('c')])
+ignored_files = set([FILENAME, __file__.rstrip('c'), 'README'])
 
 
 def collect_all_files():

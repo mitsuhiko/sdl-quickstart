@@ -1,0 +1,10 @@
+
+
+  -- SDL Quickstart
+
+  This git repository provides the source for a Python script
+  that bootstraps a SDL project with CMake and SDL 1.3.  It
+  also adds a bunch of useful helpers that make it easy to
+  compile the project on OS X and Windows and adds a skelleton
+  for a game class.
+
