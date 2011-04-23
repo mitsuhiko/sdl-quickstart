@@ -52,7 +52,7 @@ include_directories(
 # activates bundle mode on OS X and the last two things are our source
 # and header files this executable consists of.
 add_executable(
-    HelloSDL
+    %projectname%
     WIN32
     MACOSX_BUNDLE
     ${SOURCES}
@@ -63,7 +63,7 @@ add_executable(
 # framework to our application.  The latter is only happening on
 # OS X obviously.
 target_link_libraries(
-    HelloSDL
+    %projectname%
     ${OPENGL_LIBRARIES}
     ${SDL_LIBRARY}
     ${SDLMAIN_LIBRARY}
@@ -72,14 +72,14 @@ target_link_libraries(
 
 if(WIN32)
     set(VS_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR})
-    add_custom_command(TARGET HelloSDL POST_BUILD
+    add_custom_command(TARGET %projectname% POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${SDL_FOLDER}/VisualC/SDL/Release/SDL.dll ${VS_OUTPUT_DIR}/SDL.dll)
 endif()
 if(APPLE)
     set(BUNDLE_BINARY
-        ${CMAKE_CURRENT_BINARY_DIR}/HelloSDL.app/Contents/MacOS/HelloSDL)
-    add_custom_command(TARGET HelloSDL POST_BUILD
+        ${CMAKE_CURRENT_BINARY_DIR}/%projectname%.app/Contents/MacOS/%projectname%)
+    add_custom_command(TARGET %projectname% POST_BUILD
         COMMAND python scripts/frameworkify.py ${BUNDLE_BINARY}
         ${SDL_LIBRARY})
 endif()
