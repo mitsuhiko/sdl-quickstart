@@ -1,5 +1,4 @@
 
-
   -- SDL Quickstart
 
   This git repository provides the source for a Python script
@@ -7,4 +6,9 @@
   also adds a bunch of useful helpers that make it easy to
   compile the project on OS X and Windows and adds a skelleton
   for a game class.
+
+  You can get the latest version of the script at the following
+  URL:
+
+    http://bit.ly/sdl-quickstart
 

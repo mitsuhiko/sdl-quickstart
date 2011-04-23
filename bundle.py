@@ -4,7 +4,12 @@ from urllib import urlopen
 
 
 FILENAME = 'sdl-quickstart.py'
-CODE = r'''\
+CODE = r'''#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+###README###
+"""
+
 import re
 import os
 from subprocess import Popen
@@ -89,7 +94,7 @@ def collect_all_files():
             fn = os.path.join(path, filename)
             fn = fn.replace('\\', '/')
             dirnames[:] = [x for x in dirnames if not x == '.git']
-            with open(fn, 'r') as f:
+            with open(fn) as f:
                 result[fn] = f.read()
 
     resp = urlopen('https://github.com/mitsuhiko/frameworkify/raw/master/frameworkify.py')
@@ -102,10 +107,16 @@ def collect_all_files():
 def main():
     os.chdir(os.path.abspath(os.path.dirname(__file__)))
     files = collect_all_files()
+    with open('README') as f:
+        readme = f.read()
     with open(FILENAME, 'w') as f:
-        f.write(CODE.replace('###FILEDUMP###', '{\n%s}' % ',\n'.join(
-            '%r: """\n%s"""' % (k, v.encode('zlib').encode('base64'))
-            for k, v in files.iteritems())))
+        header = '#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n"""%s"""\n' \
+            % readme
+        f.write(CODE
+            .replace('###README###', readme)
+            .replace('###FILEDUMP###', '{\n%s}' % ',\n'.join(
+                '%r: """\n%s"""' % (k, v.encode('zlib').encode('base64'))
+                for k, v in files.iteritems())))
 
 
 if __name__ == '__main__':
