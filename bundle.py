@@ -88,6 +88,7 @@ def collect_all_files():
                 continue
             fn = os.path.join(path, filename)
             fn = fn.replace('\\', '/')
+            dirnames[:] = [x for x in dirnames if not x == '.git']
             with open(fn, 'r') as f:
                 result[fn] = f.read()
 
